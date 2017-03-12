@@ -4,7 +4,10 @@ require 'yaml'
 module Envyml
   def self.load(path = "#{ENV['PWD']}/config/env.yml", environment = ENV['RAILS_ENV'])
     data = YAML.load_file(path)
-    data = data[environment] if environment
+
+    if environment
+      data = data[environment] || {}
+    end
 
     data.each do |key, value|
       ENV[key] = value

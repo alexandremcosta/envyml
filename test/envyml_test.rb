@@ -17,4 +17,9 @@ class EnvymlTest < Minitest::Test
     Envyml.load("#{__dir__}/config/env_rails.yml")
     assert_equal 'bar', ENV['FOO']
   end
+
+  def test_it_does_not_fail_on_invalid_environment
+    assert Envyml.load("#{__dir__}/config/env_rails.yml", 'production')
+    assert Envyml.load("#{__dir__}/config/env_rails.yml", 'development')
+  end
 end
