@@ -3,14 +3,18 @@ require 'yaml'
 
 module Envyml
   def self.load(path = "#{ENV['PWD']}/config/env.yml", environment = ENV['RAILS_ENV'])
-    data = YAML.load_file(path)
+    if File.exist?(path)
+      data = YAML.load_file(path)
 
-    if environment
-      data = data[environment] || {}
+      if environment
+        data = data[environment] || {}
+      end
+
+      data.each do |key, value|
+        ENV[key] = value
+      end
+
+      data
     end
-
-    data.each do |key, value|
-      ENV[key] = value
-    end if File.exist?(path)
   end
 end
