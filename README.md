@@ -1,8 +1,6 @@
 # Envyml
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/envyml`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Load environment yaml file into ENV ruby hash
 
 ## Installation
 
@@ -22,18 +20,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Create file `YOUR_PROJECT/config/env.yml`, with:
+```
+  development:
+    key: VALUE
+```
 
-## Development
+Call `Envyml.load` to insert env.yml into ENV ruby hash.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+By default:
+  - It will load from YOUR_PROJECT/config/env.yml
+  - It will use ENV['RAILS_ENV'] to determine the environment
+  - If you are not using Rails it won't use environments, so leave only
+    one environment section in env.yml, or it will raise
+    `TypeError Exception: no implicit conversion of Hash into String`
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+*Custom calls*
+`Envyml.load('lib', 'test')`;
+`Envyml.load('lib')`
 
-## Contributing
+## Testing and Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/envyml. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Make sure the tests are passing: `rake test`
+Feel free to send me pull requests
 
 ## License
 
