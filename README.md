@@ -1,4 +1,4 @@
-# Envyml
+# Envyml [![Build Status](https://travis-ci.org/alexandremcosta/envyml.svg?branch=master)](https://travis-ci.org/alexandremcosta/envyml)
 
 Loads environment YAML file into
 [ENV](https://ruby-doc.org/core-2.2.0/ENV.html) ruby hash.
