@@ -1,6 +1,8 @@
 # Envyml
 
-Load environment yaml file into ENV ruby hash
+Loads environment YAML file into
+[ENV](https://ruby-doc.org/core-2.2.0/ENV.html) ruby hash.
+Minimalistic approach. The goal is to keep less than 50 LOC forever.
 
 ## Installation
 
@@ -22,27 +24,44 @@ Or install it yourself as:
 
 Create file `YOUR_PROJECT/config/env.yml`, with:
 ```
-  development:
-    key: VALUE
+  key: VALUE
 ```
 
-Call `Envyml.load` to insert env.yml into ENV ruby hash.
+Call `Envyml.load` to insert this file into ENV ruby hash.
+*Don't forget to add config/env.yml to gitignore!*
 
-By default:
-  - It will load from YOUR_PROJECT/config/env.yml
-  - It will use ENV['RAILS_ENV'] to determine the environment
-  - If you are not using Rails it won't use environments, so leave only
-    one environment section in env.yml, or it will raise
-    `TypeError Exception: no implicit conversion of Hash into String`
+## Rails
+If you are using Rails or just wants to separate your keys,
+add environment sections to your file:
+```
+  development:
+    FOO: bar
+    KEY: value
 
-*Custom calls*
-`Envyml.load('lib', 'test')`;
-`Envyml.load('lib')`
+  test:
+    FOO: bar
+    KEY: value
+```
+
+
+## Custom calls
+You can customize filename, hardcode environment and much more.
+Check /lib/envyml.rb to understand your options.
+
+```
+  Envyml.load('lib/my_file.yml', 'test')
+  Envyml.load('lib/my_file.yml')
+```
+
+If you use Rails, but wish to force use without environments
+```
+  Envyml.load('lib/my_file.yml', false)
+```
 
 ## Testing and Contributing
 
 Make sure the tests are passing: `rake test`
-Feel free to send me pull requests
+Feel free to send pull requests
 
 ## License
 
