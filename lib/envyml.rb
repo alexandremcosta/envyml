@@ -2,18 +2,11 @@ require 'envyml/version'
 require 'yaml'
 
 module Envyml
-  def self.load(path = "#{ENV['PWD']}/config/env.yml", environment = ENV['RAILS_ENV'])
+  def self.load(path = "#{ENV['PWD']}/config/env.yml", env = (Rails.env if defined?(Rails)))
     if File.exist?(path)
       data = YAML.load_file(path)
-
-      if environment
-        data = data[environment] || {}
-      end
-
-      data.each do |key, value|
-        ENV[key] = value
-      end
-
+      data = (data[env] || {}) if env
+      data.each { |k, v| ENV[k] = v }
       data
     end
   end
